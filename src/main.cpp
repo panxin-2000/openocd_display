@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
 
     return QApplication::exec();
 }
-
+/*
 void create_openocd_program(void) {
     QObject *openocd;
 
@@ -45,3 +45,4 @@ void create_openocd_program(void) {
     QThread::sleep(50);
     process.kill();
 }
+*/

@@ -22,7 +22,7 @@ new_wight::~new_wight() {
 void new_wight::on_select_cfg_file_clicked() {
     QString tem = QFileDialog::getOpenFileName();
     if (!tem.isEmpty()) {
-        ui->plainTextEdit->appendPlainText(tem);
+        ui->openocd_result->appendPlainText(tem);
         arguments << "-f" << tem;
     }
 
@@ -31,12 +31,12 @@ void new_wight::on_select_cfg_file_clicked() {
 void new_wight::on_run_program_clicked() {
     this->process.start(program, arguments);
     if (process.waitForFinished(5000)) {
-        ui->plainTextEdit->appendPlainText("finish\n");
+        ui->openocd_result->appendPlainText("finish\n");
         {
             QByteArray qba = process.readAllStandardError();
             auto toUtf16 = QStringDecoder(QStringDecoder::System);
             QString string = toUtf16(qba);
-            ui->plainTextEdit->appendPlainText(string);
+            ui->openocd_result->appendPlainText(string);
         }
         {
             QByteArray qba = process.readAllStandardOutput();
