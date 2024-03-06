@@ -10,6 +10,7 @@ find_package(Qt6 COMPONENTS
         Core
         Gui
         Widgets
+        Network
         REQUIRED)
 file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.h")
 
@@ -17,9 +18,10 @@ add_executable(openocd_display ${SOURCES})
 
 
 target_link_libraries(openocd_display
-        Qt::Core
-        Qt::Gui
-        Qt::Widgets
+        Qt6::Core
+        Qt6::Gui
+        Qt6::Widgets
+        Qt6::Network
 )
 #
 #if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)

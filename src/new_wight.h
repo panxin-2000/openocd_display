@@ -7,6 +7,7 @@
 
 #include <QWidget>
 #include "QProcess"
+#include    <QTcpSocket>
 
 
 QT_BEGIN_NAMESPACE
@@ -22,16 +23,25 @@ public:
     ~new_wight() override;
 
 private:
+    QTcpSocket *tcpClient;  //socket
     Ui::new_wight *ui;
     QStringList arguments;
     QString program = "openocd";
     QProcess process;
 
 private slots:
+
     void on_select_cfg_file_clicked();
+
     void on_run_program_clicked();
+
     void on_kill_program_clicked();
 
+    void on_reading_rtt_clicked();
+
+    void on_close_rtt_clicked();
+
+    void onSocketReadyRead();//读取socket传入的数据
 };
 
 
