@@ -34,15 +34,15 @@ public:
     QPushButton *close_rtt;
     QPushButton *save_rtt;
     QHBoxLayout *horizontalLayout_2;
-    QPlainTextEdit *rtt_result;
     QPlainTextEdit *openocd_result;
+    QPlainTextEdit *rtt_result;
 
     void setupUi(QWidget *new_wight)
     {
         if (new_wight->objectName().isEmpty())
             new_wight->setObjectName(QString::fromUtf8("new_wight"));
         new_wight->setEnabled(true);
-        new_wight->resize(613, 398);
+        new_wight->resize(761, 377);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -105,6 +105,12 @@ public:
         horizontalLayout_2->setSpacing(4);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(4, 4, 4, 4);
+        openocd_result = new QPlainTextEdit(new_wight);
+        openocd_result->setObjectName(QString::fromUtf8("openocd_result"));
+        openocd_result->setSizeIncrement(QSize(0, 0));
+
+        horizontalLayout_2->addWidget(openocd_result);
+
         rtt_result = new QPlainTextEdit(new_wight);
         rtt_result->setObjectName(QString::fromUtf8("rtt_result"));
         QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -116,12 +122,8 @@ public:
 
         horizontalLayout_2->addWidget(rtt_result);
 
-        openocd_result = new QPlainTextEdit(new_wight);
-        openocd_result->setObjectName(QString::fromUtf8("openocd_result"));
-        openocd_result->setSizeIncrement(QSize(0, 0));
-
-        horizontalLayout_2->addWidget(openocd_result);
-
+        horizontalLayout_2->setStretch(0, 3);
+        horizontalLayout_2->setStretch(1, 5);
 
         verticalLayout->addLayout(horizontalLayout_2);
 

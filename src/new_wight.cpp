@@ -32,20 +32,20 @@ void new_wight::on_select_cfg_file_clicked() {
 
 void new_wight::on_run_program_clicked() {
     this->process.start(program, arguments);
-    if (process.waitForFinished(5000)) {
-        ui->openocd_result->appendPlainText("finish\n");
+    if (process.waitForFinished(2000)) {
+        //openocd process end
         {
             QByteArray qba = process.readAllStandardError();
             auto toUtf16 = QStringDecoder(QStringDecoder::System);
             QString string = toUtf16(qba);
             ui->openocd_result->appendPlainText(string);
         }
-        {
-            QByteArray qba = process.readAllStandardOutput();
-            auto toUtf16 = QStringDecoder(QStringDecoder::System);
-            QString string = toUtf16(qba);
-            qDebug("%s\n", string.toStdString().c_str());
-        }
+//        {
+//            QByteArray qba = process.readAllStandardOutput();
+//            auto toUtf16 = QStringDecoder(QStringDecoder::System);
+//            QString string = toUtf16(qba);
+//            qDebug("%s\n", string.toStdString().c_str());
+//        }
     } else {
         qInfo("not finish\n");
         QDateTime dateTime = QDateTime::currentDateTime();
