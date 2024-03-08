@@ -8,6 +8,7 @@
 #include <QWidget>
 #include "QProcess"
 #include    <QTcpSocket>
+#include <QFile>
 
 
 QT_BEGIN_NAMESPACE
@@ -28,6 +29,7 @@ private:
     QStringList arguments;
     QString program = "openocd";
     QProcess process;
+    QFile file;
 
 private slots:
 

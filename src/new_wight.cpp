@@ -13,9 +13,9 @@
 new_wight::new_wight(QWidget *parent) :
         QWidget(parent), ui(new Ui::new_wight) {
     ui->setupUi(this);
-    tcpClient=new QTcpSocket(this);
-    connect(tcpClient,SIGNAL(readyRead()),
-            this,SLOT(onSocketReadyRead()));
+    tcpClient = new QTcpSocket(this);
+    connect(tcpClient, SIGNAL(readyRead()),
+            this, SLOT(onSocketReadyRead()));
 }
 
 new_wight::~new_wight() {
@@ -48,6 +48,11 @@ void new_wight::on_run_program_clicked() {
         }
     } else {
         qInfo("not finish\n");
+        QDateTime dateTime = QDateTime::currentDateTime();
+        QString string = dateTime.toString("yyyy-MM-dd-hh-mm-ss");
+        this->file.setFileName(string);
+        if (!file.open(QIODevice::Append | QIODevice::Text))
+            qInfo("create file error\n");
     }
 }
 
@@ -66,8 +71,7 @@ void new_wight::on_close_rtt_clicked() {
         tcpClient->disconnectFromHost();
 }
 
-void new_wight::onSocketReadyRead()
-{//readyRead()信号槽函数
-    while(tcpClient->canReadLine())
-        ui->rtt_result->appendPlainText("[in] "+tcpClient->readLine());
+void new_wight::onSocketReadyRead() {//readyRead()信号槽函数
+    while (tcpClient->canReadLine())
+        ui->rtt_result->appendPlainText("[in] " + tcpClient->readLine());
 }
