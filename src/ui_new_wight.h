@@ -11,10 +11,11 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QSpinBox>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -22,57 +23,112 @@ QT_BEGIN_NAMESPACE
 class Ui_new_wight
 {
 public:
+    QVBoxLayout *verticalLayout_2;
+    QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout;
+    QLabel *label;
     QPushButton *select_cfg_file;
     QPushButton *run_program;
-    QLabel *label;
-    QPlainTextEdit *openocd_result;
     QPushButton *kill_program;
-    QPlainTextEdit *rtt_result;
     QPushButton *reading_rtt;
-    QPushButton *save_rtt;
     QPushButton *close_rtt;
-    QLabel *label_2;
-    QSpinBox *spinBox;
+    QPushButton *save_rtt;
+    QHBoxLayout *horizontalLayout_2;
+    QPlainTextEdit *rtt_result;
+    QPlainTextEdit *openocd_result;
 
     void setupUi(QWidget *new_wight)
     {
         if (new_wight->objectName().isEmpty())
             new_wight->setObjectName(QString::fromUtf8("new_wight"));
-        new_wight->resize(633, 584);
-        select_cfg_file = new QPushButton(new_wight);
-        select_cfg_file->setObjectName(QString::fromUtf8("select_cfg_file"));
-        select_cfg_file->setGeometry(QRect(170, 140, 75, 23));
-        run_program = new QPushButton(new_wight);
-        run_program->setObjectName(QString::fromUtf8("run_program"));
-        run_program->setGeometry(QRect(250, 140, 75, 23));
+        new_wight->setEnabled(true);
+        new_wight->resize(613, 398);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(new_wight->sizePolicy().hasHeightForWidth());
+        new_wight->setSizePolicy(sizePolicy);
+        new_wight->setMaximumSize(QSize(1920, 1080));
+        verticalLayout_2 = new QVBoxLayout(new_wight);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(12);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout->setSizeConstraint(QLayout::SetFixedSize);
+        verticalLayout->setContentsMargins(4, 4, 4, 4);
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(4);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        horizontalLayout->setContentsMargins(4, 4, 4, 4);
         label = new QLabel(new_wight);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(100, 140, 53, 15));
-        openocd_result = new QPlainTextEdit(new_wight);
-        openocd_result->setObjectName(QString::fromUtf8("openocd_result"));
-        openocd_result->setGeometry(QRect(90, 190, 241, 191));
+
+        horizontalLayout->addWidget(label);
+
+        select_cfg_file = new QPushButton(new_wight);
+        select_cfg_file->setObjectName(QString::fromUtf8("select_cfg_file"));
+
+        horizontalLayout->addWidget(select_cfg_file);
+
+        run_program = new QPushButton(new_wight);
+        run_program->setObjectName(QString::fromUtf8("run_program"));
+
+        horizontalLayout->addWidget(run_program);
+
         kill_program = new QPushButton(new_wight);
         kill_program->setObjectName(QString::fromUtf8("kill_program"));
-        kill_program->setGeometry(QRect(340, 140, 75, 23));
-        rtt_result = new QPlainTextEdit(new_wight);
-        rtt_result->setObjectName(QString::fromUtf8("rtt_result"));
-        rtt_result->setGeometry(QRect(330, 190, 241, 191));
+
+        horizontalLayout->addWidget(kill_program);
+
         reading_rtt = new QPushButton(new_wight);
         reading_rtt->setObjectName(QString::fromUtf8("reading_rtt"));
-        reading_rtt->setGeometry(QRect(420, 140, 75, 23));
-        save_rtt = new QPushButton(new_wight);
-        save_rtt->setObjectName(QString::fromUtf8("save_rtt"));
-        save_rtt->setGeometry(QRect(500, 140, 75, 23));
+
+        horizontalLayout->addWidget(reading_rtt);
+
         close_rtt = new QPushButton(new_wight);
         close_rtt->setObjectName(QString::fromUtf8("close_rtt"));
-        close_rtt->setGeometry(QRect(420, 163, 75, 23));
-        label_2 = new QLabel(new_wight);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(430, 121, 53, 15));
-        spinBox = new QSpinBox(new_wight);
-        spinBox->setObjectName(QString::fromUtf8("spinBox"));
-        spinBox->setGeometry(QRect(490, 107, 81, 32));
-        spinBox->setSizeIncrement(QSize(0, 0));
+
+        horizontalLayout->addWidget(close_rtt);
+
+        save_rtt = new QPushButton(new_wight);
+        save_rtt->setObjectName(QString::fromUtf8("save_rtt"));
+
+        horizontalLayout->addWidget(save_rtt);
+
+        horizontalLayout->setStretch(0, 1);
+        horizontalLayout->setStretch(1, 5);
+        horizontalLayout->setStretch(2, 3);
+
+        verticalLayout->addLayout(horizontalLayout);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(4);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(4, 4, 4, 4);
+        rtt_result = new QPlainTextEdit(new_wight);
+        rtt_result->setObjectName(QString::fromUtf8("rtt_result"));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(rtt_result->sizePolicy().hasHeightForWidth());
+        rtt_result->setSizePolicy(sizePolicy1);
+        rtt_result->setBaseSize(QSize(0, 0));
+
+        horizontalLayout_2->addWidget(rtt_result);
+
+        openocd_result = new QPlainTextEdit(new_wight);
+        openocd_result->setObjectName(QString::fromUtf8("openocd_result"));
+        openocd_result->setSizeIncrement(QSize(0, 0));
+
+        horizontalLayout_2->addWidget(openocd_result);
+
+
+        verticalLayout->addLayout(horizontalLayout_2);
+
+        verticalLayout->setStretch(1, 7);
+
+        verticalLayout_2->addLayout(verticalLayout);
+
 
         retranslateUi(new_wight);
 
@@ -82,14 +138,13 @@ public:
     void retranslateUi(QWidget *new_wight)
     {
         new_wight->setWindowTitle(QCoreApplication::translate("new_wight", "new_wight", nullptr));
+        label->setText(QCoreApplication::translate("new_wight", "openocd", nullptr));
         select_cfg_file->setText(QCoreApplication::translate("new_wight", "\351\200\211\346\213\251cfg\346\226\207\344\273\266", nullptr));
         run_program->setText(QCoreApplication::translate("new_wight", "\346\211\247\350\241\214\347\250\213\345\272\217", nullptr));
-        label->setText(QCoreApplication::translate("new_wight", "openocd", nullptr));
         kill_program->setText(QCoreApplication::translate("new_wight", "\347\273\223\346\235\237\347\250\213\345\272\217", nullptr));
         reading_rtt->setText(QCoreApplication::translate("new_wight", "\350\257\273\345\217\226log", nullptr));
-        save_rtt->setText(QCoreApplication::translate("new_wight", "\344\277\235\345\255\230log", nullptr));
         close_rtt->setText(QCoreApplication::translate("new_wight", "\345\205\263\351\227\255log", nullptr));
-        label_2->setText(QCoreApplication::translate("new_wight", "\347\253\257\345\217\243\357\274\232", nullptr));
+        save_rtt->setText(QCoreApplication::translate("new_wight", "\344\277\235\345\255\230log", nullptr));
     } // retranslateUi
 
 };
