@@ -24,7 +24,7 @@ public:
     ~new_wight() override;
 
 private:
-    QTcpSocket *tcpClient;  //socket
+    QTcpSocket tcpClient;  //socket
     Ui::new_wight *ui;
     QStringList arguments;
     QString program = "openocd";
@@ -34,6 +34,8 @@ private:
 private slots:
 
     void on_select_cfg_file_clicked();
+
+    void write_stand_error_to_plain_text();
 
     void on_run_program_clicked();
 

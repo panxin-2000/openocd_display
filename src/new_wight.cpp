@@ -5,6 +5,7 @@
 // You may need to build the project (run Qt uic code generator) to get "ui_new_wight.h" resolved
 
 #include <QStringConverter>
+#include <QArgument>
 #include "new_wight.h"
 #include "ui_new_wight.h"
 #include "QFileDialog"
@@ -13,9 +14,12 @@
 new_wight::new_wight(QWidget *parent) :
         QWidget(parent), ui(new Ui::new_wight) {
     ui->setupUi(this);
-    tcpClient = new QTcpSocket(this);
-    connect(tcpClient, SIGNAL(readyRead()),
-            this, SLOT(onSocketReadyRead()));
+//    this->tcpClient.
+    connect(&this->tcpClient, SIGNAL(readyRead()),this, SLOT(onSocketReadyRead()));
+    connect(&this->process, SIGNAL(readyReadStandardError()), this,
+    SLOT(write_stand_error_to_plain_text()));
+    connect(&this->process, SIGNAL(readyReadStandardOutput()), this,
+    SLOT(write_stand_error_to_plain_text()));
 }
 
 new_wight::~new_wight() {
@@ -30,30 +34,52 @@ void new_wight::on_select_cfg_file_clicked() {
     }
 }
 
+void new_wight::write_stand_error_to_plain_text() {
+    QByteArray qba = process.readAllStandardError();
+    auto toUtf16 = QStringDecoder(QStringDecoder::System);
+    QString string = toUtf16(qba);
+    ui->openocd_result->appendPlainText(string);
+    qInfo("not finish\n");
+}
+
 void new_wight::on_run_program_clicked() {
+
     this->process.start(program, arguments);
-    if (process.waitForFinished(2000)) {
-        //openocd process end
-        {
-            QByteArray qba = process.readAllStandardError();
-            auto toUtf16 = QStringDecoder(QStringDecoder::System);
-            QString string = toUtf16(qba);
-            ui->openocd_result->appendPlainText(string);
-        }
+
+    QProcess::ProcessState openocd_status = this->process.state();
+    if (openocd_status == QProcess::NotRunning) {
+
+    } else if (openocd_status == QProcess::Starting) {
+        //The process is starting, but the program has not yet been invoked.
+
+
+    } else if (openocd_status == QProcess::Running) {
+
+    }
+//    if (process.waitForFinished(2000)) {
+//        openocd process end
+//        {
+//            QByteArray qba = process.readAllStandardError();
+//            auto toUtf16 = QStringDecoder(QStringDecoder::System);
+//            QString string = toUtf16(qba);
+//            ui->openocd_result->appendPlainText(string);
+//            QThread::msleep(1000);
+//
+//        }
 //        {
 //            QByteArray qba = process.readAllStandardOutput();
 //            auto toUtf16 = QStringDecoder(QStringDecoder::System);
 //            QString string = toUtf16(qba);
 //            qDebug("%s\n", string.toStdString().c_str());
 //        }
-    } else {
-        qInfo("not finish\n");
-        QDateTime dateTime = QDateTime::currentDateTime();
-        QString string = dateTime.toString("yyyy-MM-dd-hh-mm-ss");
-        this->file.setFileName(string);
-        if (!file.open(QIODevice::Append | QIODevice::Text))
-            qInfo("create file error\n");
-    }
+//    } else {
+//        qInfo("not finish\n");
+//        QDateTime dateTime = QDateTime::currentDateTime();
+//        QString string = dateTime.toString("yyyy-MM-dd-hh-mm-ss");
+//        this->file.setFileName(string);
+//        if (!file.open(QIODevice::Append | QIODevice::Text))
+//            qInfo("create file error\n");
+//    }
 }
 
 void new_wight::on_kill_program_clicked() {
@@ -63,15 +89,15 @@ void new_wight::on_kill_program_clicked() {
 
 void new_wight::on_reading_rtt_clicked() {
 
-    tcpClient->connectToHost("127.0.0.1", 9010);
+    tcpClient.connectToHost("127.0.0.1", 9010);
 }
 
 void new_wight::on_close_rtt_clicked() {
-    if (tcpClient->state() == QAbstractSocket::ConnectedState)
-        tcpClient->disconnectFromHost();
+    if (tcpClient.state() == QAbstractSocket::ConnectedState)
+        tcpClient.disconnectFromHost();
 }
 
 void new_wight::onSocketReadyRead() {//readyRead()信号槽函数
-    while (tcpClient->canReadLine())
-        ui->rtt_result->appendPlainText("[in] " + tcpClient->readLine());
+    while (tcpClient.canReadLine())
+        ui->rtt_result->appendPlainText("[in] " + tcpClient.readLine());
 }
