@@ -89,7 +89,7 @@ void new_wight::onSocketReadyRead() {//readyRead()信号槽函数
     while (tcpClient.canReadLine()){
         QString string = tcpClient.readLine();
         ui->rtt_result->appendPlainText(string);
-        if (!openocd_log_file.open(QIODevice::WriteOnly )) {
+        if (!openocd_log_file.open(QIODevice::Append )) {
             qInfo("create openocd_log_file error\n");
         }
         QByteArray  strBytes=string.toUtf8();//转换为字节数组
