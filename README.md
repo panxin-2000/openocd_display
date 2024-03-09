@@ -26,7 +26,10 @@ rtt server start 9011 1
 需要另开一个命令行执行`telnet localhost 9010`查看芯片`stm32h7x`输出的log。
 
 # TODO
-1. 将`openocd`的标准输出和标准错误都打印在控制台上
-2. 识别`openocd`的标准输出和标准错误，成功读取到`RTT`自动创建log文件,记录芯片输出log
-3. 给log文件添加颜色显示，`elog_assert`、`elog_error`、`elog_warn`、`elog_info`、`elog_debug`、`elog_verbose`都有不同的颜色表示
-4. stm32核心异常的时候输出寄存器，pc指针，方便判断异常类型。
+1. ~~将`openocd`的标准输出和标准错误都打印在控制台上~~
+2. ~~记录芯片输出log~~
+3. 识别`openocd`的标准输出和标准错误,判断时候是否正确连接芯片调试功能
+4. 识别`RTT`是否找到成功
+5. 识别端口号，并自动连接
+6. 给log文件添加颜色显示，`elog_assert`、`elog_error`、`elog_warn`、`elog_info`、`elog_debug`、`elog_verbose`都有不同的颜色表示
+7. stm32核心异常的时候输出寄存器，pc指针，方便判断异常类型。
