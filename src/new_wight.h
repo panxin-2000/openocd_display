@@ -16,7 +16,7 @@ namespace Ui { class new_wight; }
 QT_END_NAMESPACE
 
 class new_wight : public QWidget {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     explicit new_wight(QWidget *parent = nullptr);
@@ -29,13 +29,16 @@ private:
     QStringList arguments;
     QString program = "openocd";
     QProcess process;
-    QFile file;
+    QFile openocd_log_file;
 
-private slots:
+private
+    slots:
 
     void on_select_cfg_file_clicked();
 
     void write_stand_error_to_plain_text();
+
+    void write_stand_output_to_plain_text();
 
     void on_run_program_clicked();
 

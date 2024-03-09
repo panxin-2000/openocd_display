@@ -19,7 +19,7 @@ new_wight::new_wight(QWidget *parent) :
     connect(&this->process, SIGNAL(readyReadStandardError()), this,
     SLOT(write_stand_error_to_plain_text()));
     connect(&this->process, SIGNAL(readyReadStandardOutput()), this,
-    SLOT(write_stand_error_to_plain_text()));
+    SLOT(write_stand_output_to_plain_text()));
 }
 
 new_wight::~new_wight() {
@@ -39,7 +39,13 @@ void new_wight::write_stand_error_to_plain_text() {
     auto toUtf16 = QStringDecoder(QStringDecoder::System);
     QString string = toUtf16(qba);
     ui->openocd_result->appendPlainText(string);
-    qInfo("not finish\n");
+}
+
+void new_wight::write_stand_output_to_plain_text() {
+    QByteArray qba = process.readAllStandardOutput();
+    auto toUtf16 = QStringDecoder(QStringDecoder::System);
+    QString string = toUtf16(qba);
+    ui->openocd_result->appendPlainText(string);
 }
 
 void new_wight::on_run_program_clicked() {
@@ -48,38 +54,18 @@ void new_wight::on_run_program_clicked() {
 
     QProcess::ProcessState openocd_status = this->process.state();
     if (openocd_status == QProcess::NotRunning) {
+        //The process is not running
+        qInfo("The process is not running");
 
-    } else if (openocd_status == QProcess::Starting) {
+    } else if ((openocd_status == QProcess::Starting) || (openocd_status == QProcess::Running)) {
         //The process is starting, but the program has not yet been invoked.
-
-
-    } else if (openocd_status == QProcess::Running) {
-
+        QDateTime dateTime = QDateTime::currentDateTime();
+        QString string = dateTime.toString("yyyy-MM-dd-hh-mm-ss");
+        this->openocd_log_file.setFileName(string);
+        if (!openocd_log_file.open(QIODevice::WriteOnly )) {
+            qInfo("create openocd_log_file error\n");
+        }
     }
-//    if (process.waitForFinished(2000)) {
-//        openocd process end
-//        {
-//            QByteArray qba = process.readAllStandardError();
-//            auto toUtf16 = QStringDecoder(QStringDecoder::System);
-//            QString string = toUtf16(qba);
-//            ui->openocd_result->appendPlainText(string);
-//            QThread::msleep(1000);
-//
-//        }
-//        {
-//            QByteArray qba = process.readAllStandardOutput();
-//            auto toUtf16 = QStringDecoder(QStringDecoder::System);
-//            QString string = toUtf16(qba);
-//            qDebug("%s\n", string.toStdString().c_str());
-//        }
-//    } else {
-//        qInfo("not finish\n");
-//        QDateTime dateTime = QDateTime::currentDateTime();
-//        QString string = dateTime.toString("yyyy-MM-dd-hh-mm-ss");
-//        this->file.setFileName(string);
-//        if (!file.open(QIODevice::Append | QIODevice::Text))
-//            qInfo("create file error\n");
-//    }
 }
 
 void new_wight::on_kill_program_clicked() {
@@ -98,6 +84,13 @@ void new_wight::on_close_rtt_clicked() {
 }
 
 void new_wight::onSocketReadyRead() {//readyRead()信号槽函数
-    while (tcpClient.canReadLine())
-        ui->rtt_result->appendPlainText("[in] " + tcpClient.readLine());
+    while (tcpClient.canReadLine()){
+        QString string = tcpClient.readLine();
+        ui->rtt_result->appendPlainText(string);
+        this->openocd_log_file.write("string.toUtf8()");
+    }
+
+//        openocd_log_file.
+//        this->openocd_log_file.  //添加在文件后添加语句的内容。
+
 }
