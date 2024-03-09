@@ -65,6 +65,12 @@ void new_wight::on_run_program_clicked() {
         if (!openocd_log_file.open(QIODevice::WriteOnly )) {
             qInfo("create openocd_log_file error\n");
         }
+//        QString string = tcpClient.readLine();
+//        ui->rtt_result->appendPlainText(string);
+        QByteArray  strBytes=string.toUtf8();//转换为字节数组
+        this->openocd_log_file.write(strBytes,strBytes.length());  //写入文件
+        this->openocd_log_file.close();
+
     }
 }
 
@@ -87,7 +93,8 @@ void new_wight::onSocketReadyRead() {//readyRead()信号槽函数
     while (tcpClient.canReadLine()){
         QString string = tcpClient.readLine();
         ui->rtt_result->appendPlainText(string);
-        this->openocd_log_file.write("string.toUtf8()");
+        QByteArray  strBytes=string.toUtf8();//转换为字节数组
+//        this->openocd_log_file.write(strBytes,strBytes.length());  //写入文件
     }
 
 //        openocd_log_file.
