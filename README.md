@@ -33,3 +33,4 @@ rtt server start 9011 1
 5. ~~识别端口号，并自动连接~~
 6. 给log文件添加颜色显示，`elog_assert`、`elog_error`、`elog_warn`、`elog_info`、`elog_debug`、`elog_verbose`都有不同的颜色表示
 7. stm32核心异常的时候输出寄存器，pc指针，方便判断异常类型。
+8. 目前输出的log在控制台是有颜色的，界面中是没有颜色的，需要添加颜色现实，也就是第6项
