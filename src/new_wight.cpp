@@ -51,7 +51,7 @@ void new_wight::write_stand_error_to_plain_text() {
             QString matched = match.captured(0);
             int number = matched.split(" ")[0].toInt();
             //下一步需要发射一个信号去执行读取log的按钮接口
-            qInfo()<<number;
+            qInfo() << number;
 
             tcpClient.connectToHost("127.0.0.1", (quint16) number);
 
@@ -76,7 +76,7 @@ void new_wight::write_stand_output_to_plain_text() {
             QString matched = match.captured(0);
             int number = matched.split(" ")[0].toInt();
             //下一步需要发射一个信号去执行读取log的按钮接口
-            qInfo()<<number;
+            qInfo() << number;
 
             tcpClient.connectToHost("127.0.0.1", (quint16) number);
             if (!openocd_log_file.open(QIODevice::WriteOnly)) {
@@ -93,6 +93,7 @@ void new_wight::write_stand_output_to_plain_text() {
 
 void new_wight::on_run_program_clicked() {
 
+    arguments << "-f" << "/home/panxin/CLionProjects/stm32_log_example/openocd_config/stlink-rtt.cfg";
     this->process.start(program, arguments);
 
     QProcess::ProcessState openocd_status = this->process.state();
@@ -125,13 +126,76 @@ void new_wight::on_close_rtt_clicked() {
 void new_wight::onSocketReadyRead() {//readyRead()信号槽函数
     while (tcpClient.canReadLine()) {
         QString string = tcpClient.readLine();
-        ui->rtt_result->appendPlainText(string);
-        if (!openocd_log_file.open(QIODevice::Append)) {
-            qInfo("create openocd_log_file error\n");
-        }
         QByteArray strBytes = string.toUtf8();//转换为字节数组
         this->openocd_log_file.write(strBytes, strBytes.length());  //写入文件
         this->openocd_log_file.close();
+        //
+        QString tem_033 = "\033[";
+//        QChar tem_00 = '\033';
+//        int a = string.compare(tem_033, Qt::CaseInsensitive);
+        int a = string.indexOf(tem_033, Qt::CaseInsensitive);
+        if (a >= 0) {
+            QString tem = string.mid(2, 2);
+            bool tem_bool = false;
+            uint color = tem.toUInt(&tem_bool, 10);
+            QTextCharFormat tem_QTextCharFormat;
+            switch (color) {//VT100颜色表
+                case 30:
+                    tem_QTextCharFormat.setForeground(QBrush(QColor(Qt::black)));
+                    break;
+                case 31:
+                    tem_QTextCharFormat.setForeground(QBrush(QColor(Qt::red)));
+                    break;
+                case 32:
+                    tem_QTextCharFormat.setForeground(QBrush(QColor(Qt::green)));
+                    break;
+                case 33:
+                    tem_QTextCharFormat.setForeground(QBrush(QColor(Qt::yellow)));
+                    break;
+                case 34:
+                    tem_QTextCharFormat.setForeground(QBrush(QColor(Qt::blue)));
+                    break;
+                case 35:
+                    tem_QTextCharFormat.setForeground(QBrush(QColor(Qt::yellow)));
+                    break;
+                case 36:
+                    tem_QTextCharFormat.setForeground(QBrush(QColor(Qt::cyan)));
+                    break;
+                case 37:
+                    tem_QTextCharFormat.setForeground(QBrush(QColor(Qt::white)));
+                    break;
+                default:
+                    break;
+            }
+//            tem_QTextCharFormat.setBackground(QBrush(QColor(Qt::black)));
+            ui->rtt_result->setStyleSheet("background: #000000;");
+            ui->rtt_result->mergeCurrentCharFormat(tem_QTextCharFormat);
+        }
+
+        //先存储原始数据
+
+        //首先需要搞清楚控制台显示颜色的规则
+        //然后再去分割字符，分清楚那些是现实颜色的字符，那些是需要显示的字符，那些是表示颜色或者控制行的字符
+//        u"\033[32;22mD/main            [41025] range time 548\033[0m\r\n"
+//        u"\033[35;22mA/main            [43349] range time 139\033[0m\r\n"
+//u"\033[33;22mW/main            [44373] range time 493\033[0m\r\n"
+//u"\033[36;22mI/main            [44610] range time 236\033[0m\r\n"
+//u"\033[34;22mV/main            [45596] range time 560\033[0m\r\n"
+//还差一个应该是stm程序错误导致的没有现实出来
+
+//        不同的设置不同的颜色或者其他的内容
+        //分割字符，
+
+
+        //颜色搞定了，然后还有其他的问题，比如文字大小，有些特殊字符不应该显示，还有就是光标会一直向末尾跳动（这个可能变成只读之后会好）
+
+        ui->rtt_result->appendPlainText(string);
+        ui->rtt_result->moveCursor(QTextCursor::End);
+        ui->rtt_result->textCursor().deletePreviousChar();
+        if (!openocd_log_file.open(QIODevice::Append)) {
+            qInfo("create openocd_log_file error\n");
+        }
+
     }
 
 //        openocd_log_file.
