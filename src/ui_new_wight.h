@@ -119,6 +119,10 @@ public:
         sizePolicy1.setHeightForWidth(rtt_result->sizePolicy().hasHeightForWidth());
         rtt_result->setSizePolicy(sizePolicy1);
         rtt_result->setBaseSize(QSize(0, 0));
+        QFont font;
+        font.setFamily(QString::fromUtf8("Ubuntu Mono"));
+        font.setPointSize(12);
+        rtt_result->setFont(font);
 
         horizontalLayout_2->addWidget(rtt_result);
 

@@ -16,6 +16,10 @@
 new_wight::new_wight(QWidget *parent) :
         QWidget(parent), ui(new Ui::new_wight) {
     ui->setupUi(this);
+    ui->rtt_result->setReadOnly(true);
+//    ui->rtt_result->setFont(true);
+    ui->openocd_result->setReadOnly(true);
+    ui->rtt_result->setStyleSheet("background: #000000;");
 //    this->tcpClient.
     connect(&this->tcpClient, SIGNAL(readyRead()), this, SLOT(onSocketReadyRead()));
     connect(&this->process, SIGNAL(readyReadStandardError()), this,
@@ -104,7 +108,7 @@ void new_wight::on_run_program_clicked() {
     } else if ((openocd_status == QProcess::Starting) || (openocd_status == QProcess::Running)) {
         //The process is starting, but the program has not yet been invoked.
         QDateTime dateTime = QDateTime::currentDateTime();
-        QString string = dateTime.toString("yyyy-MM-dd-hh-mm-ss");
+        QString string = dateTime.toString("yyyy-MM-dd-hh-mm-ss") + ".log";
         this->openocd_log_file.setFileName(string);
     }
 }
@@ -168,8 +172,9 @@ void new_wight::onSocketReadyRead() {//readyRead()信号槽函数
                     break;
             }
 //            tem_QTextCharFormat.setBackground(QBrush(QColor(Qt::black)));
-            ui->rtt_result->setStyleSheet("background: #000000;");
             ui->rtt_result->mergeCurrentCharFormat(tem_QTextCharFormat);
+            int b = string.indexOf(tem_033, 8,Qt::CaseInsensitive);
+             string = string.mid(8, b-7);
         }
 
         //先存储原始数据
@@ -188,6 +193,8 @@ void new_wight::onSocketReadyRead() {//readyRead()信号槽函数
 
 
         //颜色搞定了，然后还有其他的问题，比如文字大小，有些特殊字符不应该显示，还有就是光标会一直向末尾跳动（这个可能变成只读之后会好）
+        //字体也是需要更改的，特殊字符不现实暂时搞定了
+        //可以通过qtdesigner设置字体和文字大小
 
         ui->rtt_result->appendPlainText(string);
         ui->rtt_result->moveCursor(QTextCursor::End);
