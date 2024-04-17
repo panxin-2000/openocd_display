@@ -20,6 +20,9 @@ new_wight::new_wight(QWidget *parent) :
 //    ui->rtt_result->setFont(true);
     ui->openocd_result->setReadOnly(true);
     ui->rtt_result->setStyleSheet("background: #000000;");
+
+    this->openocd_log_file.setFileName("~/.config/openocd-display");
+
 //    this->tcpClient.
     connect(&this->tcpClient, SIGNAL(readyRead()), this, SLOT(onSocketReadyRead()));
     connect(&this->process, SIGNAL(readyReadStandardError()), this,
@@ -97,6 +100,15 @@ void new_wight::write_stand_output_to_plain_text() {
 
 void new_wight::on_run_program_clicked() {
 
+
+    if (!config_file.open(QIODevice::ReadOnly)) {
+        qInfo("open config_file error\n");
+    } else{
+        QByteArray tem = this->config_file.readLine();
+    }
+    this->config_file.close();
+
+
     arguments << "-f" << "/home/panxin/CLionProjects/stm32_log_example/openocd_config/stlink-rtt.cfg";
     this->process.start(program, arguments);
 
@@ -130,6 +142,9 @@ void new_wight::on_close_rtt_clicked() {
 void new_wight::onSocketReadyRead() {//readyRead()信号槽函数
     while (tcpClient.canReadLine()) {
         QString string = tcpClient.readLine();
+        if (!openocd_log_file.open(QIODevice::Append)) {
+            qInfo("create openocd_log_file error\n");
+        }
         QByteArray strBytes = string.toUtf8();//转换为字节数组
         this->openocd_log_file.write(strBytes, strBytes.length());  //写入文件
         this->openocd_log_file.close();
@@ -173,8 +188,8 @@ void new_wight::onSocketReadyRead() {//readyRead()信号槽函数
             }
 //            tem_QTextCharFormat.setBackground(QBrush(QColor(Qt::black)));
             ui->rtt_result->mergeCurrentCharFormat(tem_QTextCharFormat);
-            int b = string.indexOf(tem_033, 8,Qt::CaseInsensitive);
-             string = string.mid(8, b-7);
+            int b = string.indexOf(tem_033, 8, Qt::CaseInsensitive);
+            string = string.mid(8, b - 7);
         }
 
         //先存储原始数据
@@ -199,9 +214,7 @@ void new_wight::onSocketReadyRead() {//readyRead()信号槽函数
         ui->rtt_result->appendPlainText(string);
         ui->rtt_result->moveCursor(QTextCursor::End);
         ui->rtt_result->textCursor().deletePreviousChar();
-        if (!openocd_log_file.open(QIODevice::Append)) {
-            qInfo("create openocd_log_file error\n");
-        }
+
 
     }
 

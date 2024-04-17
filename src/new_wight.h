@@ -31,6 +31,7 @@ private:
     QString program = "openocd";
     QProcess process;
     QFile openocd_log_file;
+    QFile config_file;
 
 signals:
 
