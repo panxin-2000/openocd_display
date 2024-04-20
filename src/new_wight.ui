@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>761</width>
-    <height>377</height>
+    <width>936</width>
+    <height>732</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -28,12 +28,9 @@
   <property name="windowTitle">
    <string>new_wight</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
-   <item>
-    <layout class="QVBoxLayout" name="verticalLayout" stretch="0,7">
-     <property name="spacing">
-      <number>12</number>
-     </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout">
      <property name="sizeConstraint">
       <enum>QLayout::SetFixedSize</enum>
      </property>
@@ -50,7 +47,7 @@
       <number>4</number>
      </property>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,5,3,0,0,0,0">
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,5,0,0,0,0,0,0">
        <property name="spacing">
         <number>4</number>
        </property>
@@ -81,9 +78,16 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>选择下载的文件</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="run_program">
          <property name="text">
-          <string>执行程序</string>
+          <string>执行openocd程序</string>
          </property>
         </widget>
        </item>
@@ -112,6 +116,80 @@
         <widget class="QPushButton" name="save_rtt">
          <property name="text">
           <string>保存log</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <property name="spacing">
+        <number>10</number>
+       </property>
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
+        <number>10</number>
+       </property>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="ASSERT_check_box">
+         <property name="text">
+          <string>ASSERT</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="ERROR_check_box">
+         <property name="text">
+          <string>ERROR</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="WARN_check_box">
+         <property name="text">
+          <string>WARN</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="INFO_check_box">
+         <property name="text">
+          <string>INFO</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="DEBUG_check_box">
+         <property name="text">
+          <string>DEBUG</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="VERBOSE__check_box">
+         <property name="text">
+          <string>VERBOSE</string>
          </property>
         </widget>
        </item>
