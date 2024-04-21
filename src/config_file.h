@@ -12,6 +12,8 @@ class Config_file {
 public:
     Config_file();
 
+    ~Config_file();
+
     bool config_file_init(void);
 
     bool set_Process_arguments(QString Process_arguments);

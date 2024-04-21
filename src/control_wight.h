@@ -9,10 +9,11 @@
 #include <QProcess>
 #include <QTcpSocket>
 #include <QFile>
+#include "config_file.h"
 
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class new_wight; }
+namespace Ui { class control_wight; }
 QT_END_NAMESPACE
 
 class control_wight : public QWidget {
@@ -25,12 +26,13 @@ public:
     ~control_wight() override;
 
 private:
+
     QTcpSocket tcpClient;  //socket
-    Ui::new_wight *ui;
-    QStringList arguments;
+    Ui::control_wight *ui;
     QString program = "openocd";
     QProcess process;
     QFile openocd_log_file;
+    Config_file configFile;
 
 signals:
 
@@ -50,6 +52,8 @@ public slots:
  * 当选择cfg文件的按钮后会调用该函数中的内容
  */
     void on_select_cfg_file_clicked();
+
+    void on_select_download_file_clicked();
 
     void on_run_program_clicked();
 

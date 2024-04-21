@@ -7,21 +7,19 @@
 #include <QStringConverter>
 #include <QArgument>
 #include "control_wight.h"
-#include "ui_new_wight.h"
+#include "ui_control_wight.h"
 #include "QFileDialog"
 #include "QThread"
 #include <QRegularExpression>
 
 
 control_wight::control_wight(QWidget *parent) :
-        QWidget(parent), ui(new Ui::new_wight) {
+        QWidget(parent), ui(new Ui::control_wight) {
     ui->setupUi(this);
     ui->rtt_result->setReadOnly(true);
 //    ui->rtt_result->setFont(true);
     ui->openocd_result->setReadOnly(true);
     ui->rtt_result->setStyleSheet("background: #000000;");
-    arguments << "-f" << "/home/panxin/CLionProjects/stm32_log_example/openocd_config/stlink-rtt.cfg";
-    this->openocd_log_file.setFileName("~/.config/openocd-display");
 
 //    this->tcpClient.
     connect(&this->tcpClient, SIGNAL(readyRead()), this, SLOT(onSocketReadyRead()));
@@ -42,9 +40,8 @@ control_wight::~control_wight() {
 void control_wight::on_select_cfg_file_clicked() {
     QString tem = QFileDialog::getOpenFileName();
     if (!tem.isEmpty()) {
-        arguments.clear();//应该是清空
-        ui->openocd_result->appendPlainText(tem);
-        arguments << "-f" << tem;
+        //如果被选择的文件名不是空的，就添加到configFile
+        configFile.set_Process_arguments(tem);
     }
 }
 
@@ -62,9 +59,7 @@ void control_wight::write_stand_error_to_plain_text() {
             int number = matched.split(" ")[0].toInt();
             //下一步需要发射一个信号去执行读取log的按钮接口
             qInfo() << number;
-
             tcpClient.connectToHost("127.0.0.1", (quint16) number);
-
         }
     } else {
         //没有匹配到，但是是每行都会去判断，所以不能输出错误信息
@@ -97,39 +92,56 @@ void control_wight::write_stand_output_to_plain_text() {
     } else {
         //没有匹配到，但是是每行都会去判断，所以不能输出错误信息
     }
-
-
 }
 
 void control_wight::on_run_program_clicked() {
+//配置要执行的命令以及参数
+    QStringList arguments;
+    arguments.clear();
+    QString tem = configFile.read_Process_arguments();
+    if(!tem.isEmpty()){
+        arguments << "-f" << tem;
+        this->process.start(program, arguments);
+        QProcess::ProcessState openocd_status = this->process.state();
+        if (openocd_status == QProcess::NotRunning) {
+            //The process is not running
+            qInfo("The process is not running");
 
-
-    if (!config_file.open(QIODevice::ReadOnly)) {
-        qInfo("open config_file error\n");
-    } else{
-        QByteArray tem = this->config_file.readLine();
-    }
-    this->config_file.close();
-
-
-    this->process.start(program, arguments);
-
-    QProcess::ProcessState openocd_status = this->process.state();
-    if (openocd_status == QProcess::NotRunning) {
-        //The process is not running
-        qInfo("The process is not running");
-
-    } else if ((openocd_status == QProcess::Starting) || (openocd_status == QProcess::Running)) {
-        //The process is starting, but the program has not yet been invoked.
-        QDateTime dateTime = QDateTime::currentDateTime();
-        QString string = dateTime.toString("yyyy-MM-dd-hh-mm-ss") + ".log";
-        this->openocd_log_file.setFileName(string);
+        } else if ((openocd_status == QProcess::Starting) || (openocd_status == QProcess::Running)) {
+            //The process is starting, but the program has not yet been invoked.
+            QDateTime dateTime = QDateTime::currentDateTime();
+            QString string = dateTime.toString("yyyy-MM-dd-hh-mm-ss") + ".log";
+            this->openocd_log_file.setFileName(string);
+        }
+    }else{
+        qInfo("openocd process no arguments\n");
     }
 }
 
 void control_wight::on_kill_program_clicked() {
     this->process.kill();
     qInfo("killed openocd process\n");
+}
+
+void control_wight::on_select_download_file_clicked()
+{
+    QStringList arguments;
+    arguments.clear();
+    QString tem = configFile.read_Process_arguments();
+    if(!tem.isEmpty()){
+        arguments << "-f" << tem;
+        this->process.start(program, arguments);
+        QProcess::ProcessState openocd_status = this->process.state();
+        if (openocd_status == QProcess::NotRunning) {
+            //The process is not running
+
+        } else if ((openocd_status == QProcess::Starting) || (openocd_status == QProcess::Running)) {
+            //The process is starting, but the program has not yet been invoked.
+
+        }
+    }else{
+        qInfo("openocd process no arguments\n");
+    }
 }
 
 void control_wight::on_reading_rtt_clicked() {

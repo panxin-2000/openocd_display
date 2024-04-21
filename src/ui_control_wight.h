@@ -1,5 +1,5 @@
 /********************************************************************************
-** Form generated from reading UI file 'control_wight.ui'
+** Form generated from reading UI file 'new_wight.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.3
 **
@@ -23,7 +23,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_new_wight
+class Ui_control_wight
 {
 public:
     QGridLayout *gridLayout;
@@ -31,7 +31,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QLabel *label;
     QPushButton *select_cfg_file;
-    QPushButton *pushButton;
+    QPushButton *select_download_file;
     QPushButton *run_program;
     QPushButton *kill_program;
     QPushButton *reading_rtt;
@@ -49,19 +49,19 @@ public:
     QPlainTextEdit *openocd_result;
     QPlainTextEdit *rtt_result;
 
-    void setupUi(QWidget *new_wight)
+    void setupUi(QWidget *control_wight)
     {
-        if (new_wight->objectName().isEmpty())
-            new_wight->setObjectName(QString::fromUtf8("control_wight"));
-        new_wight->setEnabled(true);
-        new_wight->resize(936, 732);
+        if (control_wight->objectName().isEmpty())
+            control_wight->setObjectName(QString::fromUtf8("control_wight"));
+        control_wight->setEnabled(true);
+        control_wight->resize(936, 732);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(new_wight->sizePolicy().hasHeightForWidth());
-        new_wight->setSizePolicy(sizePolicy);
-        new_wight->setMaximumSize(QSize(1920, 1080));
-        gridLayout = new QGridLayout(new_wight);
+        sizePolicy.setHeightForWidth(control_wight->sizePolicy().hasHeightForWidth());
+        control_wight->setSizePolicy(sizePolicy);
+        control_wight->setMaximumSize(QSize(1920, 1080));
+        gridLayout = new QGridLayout(control_wight);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
@@ -71,42 +71,42 @@ public:
         horizontalLayout->setSpacing(4);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(4, 4, 4, 4);
-        label = new QLabel(new_wight);
+        label = new QLabel(control_wight);
         label->setObjectName(QString::fromUtf8("label"));
 
         horizontalLayout->addWidget(label);
 
-        select_cfg_file = new QPushButton(new_wight);
+        select_cfg_file = new QPushButton(control_wight);
         select_cfg_file->setObjectName(QString::fromUtf8("select_cfg_file"));
 
         horizontalLayout->addWidget(select_cfg_file);
 
-        pushButton = new QPushButton(new_wight);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        select_download_file = new QPushButton(control_wight);
+        select_download_file->setObjectName(QString::fromUtf8("select_download_file"));
 
-        horizontalLayout->addWidget(pushButton);
+        horizontalLayout->addWidget(select_download_file);
 
-        run_program = new QPushButton(new_wight);
+        run_program = new QPushButton(control_wight);
         run_program->setObjectName(QString::fromUtf8("run_program"));
 
         horizontalLayout->addWidget(run_program);
 
-        kill_program = new QPushButton(new_wight);
+        kill_program = new QPushButton(control_wight);
         kill_program->setObjectName(QString::fromUtf8("kill_program"));
 
         horizontalLayout->addWidget(kill_program);
 
-        reading_rtt = new QPushButton(new_wight);
+        reading_rtt = new QPushButton(control_wight);
         reading_rtt->setObjectName(QString::fromUtf8("reading_rtt"));
 
         horizontalLayout->addWidget(reading_rtt);
 
-        close_rtt = new QPushButton(new_wight);
+        close_rtt = new QPushButton(control_wight);
         close_rtt->setObjectName(QString::fromUtf8("close_rtt"));
 
         horizontalLayout->addWidget(close_rtt);
 
-        save_rtt = new QPushButton(new_wight);
+        save_rtt = new QPushButton(control_wight);
         save_rtt->setObjectName(QString::fromUtf8("save_rtt"));
 
         horizontalLayout->addWidget(save_rtt);
@@ -124,32 +124,32 @@ public:
 
         horizontalLayout_4->addItem(horizontalSpacer);
 
-        ASSERT_check_box = new QCheckBox(new_wight);
+        ASSERT_check_box = new QCheckBox(control_wight);
         ASSERT_check_box->setObjectName(QString::fromUtf8("ASSERT_check_box"));
 
         horizontalLayout_4->addWidget(ASSERT_check_box);
 
-        ERROR_check_box = new QCheckBox(new_wight);
+        ERROR_check_box = new QCheckBox(control_wight);
         ERROR_check_box->setObjectName(QString::fromUtf8("ERROR_check_box"));
 
         horizontalLayout_4->addWidget(ERROR_check_box);
 
-        WARN_check_box = new QCheckBox(new_wight);
+        WARN_check_box = new QCheckBox(control_wight);
         WARN_check_box->setObjectName(QString::fromUtf8("WARN_check_box"));
 
         horizontalLayout_4->addWidget(WARN_check_box);
 
-        INFO_check_box = new QCheckBox(new_wight);
+        INFO_check_box = new QCheckBox(control_wight);
         INFO_check_box->setObjectName(QString::fromUtf8("INFO_check_box"));
 
         horizontalLayout_4->addWidget(INFO_check_box);
 
-        DEBUG_check_box = new QCheckBox(new_wight);
+        DEBUG_check_box = new QCheckBox(control_wight);
         DEBUG_check_box->setObjectName(QString::fromUtf8("DEBUG_check_box"));
 
         horizontalLayout_4->addWidget(DEBUG_check_box);
 
-        VERBOSE__check_box = new QCheckBox(new_wight);
+        VERBOSE__check_box = new QCheckBox(control_wight);
         VERBOSE__check_box->setObjectName(QString::fromUtf8("VERBOSE__check_box"));
 
         horizontalLayout_4->addWidget(VERBOSE__check_box);
@@ -161,13 +161,13 @@ public:
         horizontalLayout_2->setSpacing(4);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(4, 4, 4, 4);
-        openocd_result = new QPlainTextEdit(new_wight);
+        openocd_result = new QPlainTextEdit(control_wight);
         openocd_result->setObjectName(QString::fromUtf8("openocd_result"));
         openocd_result->setSizeIncrement(QSize(0, 0));
 
         horizontalLayout_2->addWidget(openocd_result);
 
-        rtt_result = new QPlainTextEdit(new_wight);
+        rtt_result = new QPlainTextEdit(control_wight);
         rtt_result->setObjectName(QString::fromUtf8("rtt_result"));
         QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy1.setHorizontalStretch(0);
@@ -191,17 +191,17 @@ public:
         gridLayout->addLayout(verticalLayout, 0, 0, 1, 1);
 
 
-        retranslateUi(new_wight);
+        retranslateUi(control_wight);
 
-        QMetaObject::connectSlotsByName(new_wight);
+        QMetaObject::connectSlotsByName(control_wight);
     } // setupUi
 
-    void retranslateUi(QWidget *new_wight)
+    void retranslateUi(QWidget *control_wight)
     {
-        new_wight->setWindowTitle(QCoreApplication::translate("control_wight", "control_wight", nullptr));
+        control_wight->setWindowTitle(QCoreApplication::translate("control_wight", "control_wight", nullptr));
         label->setText(QCoreApplication::translate("control_wight", "openocd", nullptr));
         select_cfg_file->setText(QCoreApplication::translate("control_wight", "\351\200\211\346\213\251cfg\346\226\207\344\273\266", nullptr));
-        pushButton->setText(QCoreApplication::translate("control_wight", "\351\200\211\346\213\251\344\270\213\350\275\275\347\232\204\346\226\207\344\273\266", nullptr));
+        select_download_file->setText(QCoreApplication::translate("control_wight", "\351\200\211\346\213\251\344\270\213\350\275\275\347\232\204\346\226\207\344\273\266", nullptr));
         run_program->setText(QCoreApplication::translate("control_wight", "\346\211\247\350\241\214openocd\347\250\213\345\272\217", nullptr));
         kill_program->setText(QCoreApplication::translate("control_wight", "\347\273\223\346\235\237\347\250\213\345\272\217", nullptr));
         reading_rtt->setText(QCoreApplication::translate("control_wight", "\350\257\273\345\217\226log", nullptr));
@@ -218,7 +218,7 @@ public:
 };
 
 namespace Ui {
-    class new_wight: public Ui_new_wight {};
+    class control_wight: public Ui_control_wight {};
 } // namespace Ui
 
 QT_END_NAMESPACE
