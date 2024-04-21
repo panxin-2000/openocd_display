@@ -2,12 +2,12 @@
 // Created by panxin on 2024/1/19.
 //
 
-#ifndef QT_NEW_WIGHT_H
-#define QT_NEW_WIGHT_H
+#ifndef QT_CONTROL_WIGHT_H
+#define QT_CONTROL_WIGHT_H
 
 #include <QWidget>
-#include "QProcess"
-#include    <QTcpSocket>
+#include <QProcess>
+#include <QTcpSocket>
 #include <QFile>
 
 
@@ -15,14 +15,14 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class new_wight; }
 QT_END_NAMESPACE
 
-class new_wight : public QWidget {
+class control_wight : public QWidget {
 Q_OBJECT
 
 
 public:
-    explicit new_wight(QWidget *parent = nullptr);
+    explicit control_wight(QWidget *parent = nullptr);
 
-    ~new_wight() override;
+    ~control_wight() override;
 
 private:
     QTcpSocket tcpClient;  //socket
@@ -31,19 +31,25 @@ private:
     QString program = "openocd";
     QProcess process;
     QFile openocd_log_file;
-    QFile config_file;
 
 signals:
 
     void port_send(int port);
 
-private slots:
 
-    void on_select_cfg_file_clicked();
-
+public slots:
+  /*
+     *
+     */
     void write_stand_error_to_plain_text();
 
     void write_stand_output_to_plain_text();
+
+public slots:
+/*
+ * 当选择cfg文件的按钮后会调用该函数中的内容
+ */
+    void on_select_cfg_file_clicked();
 
     void on_run_program_clicked();
 
@@ -57,4 +63,4 @@ private slots:
 };
 
 
-#endif //QT_NEW_WIGHT_H
+#endif //QT_CONTROL_WIGHT_H

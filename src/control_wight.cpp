@@ -6,21 +6,21 @@
 
 #include <QStringConverter>
 #include <QArgument>
-#include "new_wight.h"
+#include "control_wight.h"
 #include "ui_new_wight.h"
 #include "QFileDialog"
 #include "QThread"
 #include <QRegularExpression>
 
 
-new_wight::new_wight(QWidget *parent) :
+control_wight::control_wight(QWidget *parent) :
         QWidget(parent), ui(new Ui::new_wight) {
     ui->setupUi(this);
     ui->rtt_result->setReadOnly(true);
 //    ui->rtt_result->setFont(true);
     ui->openocd_result->setReadOnly(true);
     ui->rtt_result->setStyleSheet("background: #000000;");
-
+    arguments << "-f" << "/home/panxin/CLionProjects/stm32_log_example/openocd_config/stlink-rtt.cfg";
     this->openocd_log_file.setFileName("~/.config/openocd-display");
 
 //    this->tcpClient.
@@ -29,23 +29,26 @@ new_wight::new_wight(QWidget *parent) :
             SLOT(write_stand_error_to_plain_text()));
     connect(&this->process, SIGNAL(readyReadStandardOutput()), this,
             SLOT(write_stand_output_to_plain_text()));
-//    new_wight::connect(parent, SIGNAL(port_send(int)), parent, SLOT(on_reading_rtt_clicked(int)));
+
+//仔细看了看Cheetah-Software这个工程，很少用到connect函数，原因和项目的任务是有关的。
+//    control_wight::connect(parent, SIGNAL(port_send(int)), parent, SLOT(on_reading_rtt_clicked(int)));
 
 }
 
-new_wight::~new_wight() {
+control_wight::~control_wight() {
     delete ui;
 }
 
-void new_wight::on_select_cfg_file_clicked() {
+void control_wight::on_select_cfg_file_clicked() {
     QString tem = QFileDialog::getOpenFileName();
     if (!tem.isEmpty()) {
+        arguments.clear();//应该是清空
         ui->openocd_result->appendPlainText(tem);
         arguments << "-f" << tem;
     }
 }
 
-void new_wight::write_stand_error_to_plain_text() {
+void control_wight::write_stand_error_to_plain_text() {
     QByteArray qba = process.readAllStandardError();
     auto toUtf16 = QStringDecoder(QStringDecoder::System);
     QString string = toUtf16(qba);
@@ -68,7 +71,7 @@ void new_wight::write_stand_error_to_plain_text() {
     }
 }
 
-void new_wight::write_stand_output_to_plain_text() {
+void control_wight::write_stand_output_to_plain_text() {
     QByteArray qba = process.readAllStandardOutput();
     auto toUtf16 = QStringDecoder(QStringDecoder::System);
     QString string = toUtf16(qba);
@@ -98,7 +101,7 @@ void new_wight::write_stand_output_to_plain_text() {
 
 }
 
-void new_wight::on_run_program_clicked() {
+void control_wight::on_run_program_clicked() {
 
 
     if (!config_file.open(QIODevice::ReadOnly)) {
@@ -109,7 +112,6 @@ void new_wight::on_run_program_clicked() {
     this->config_file.close();
 
 
-    arguments << "-f" << "/home/panxin/CLionProjects/stm32_log_example/openocd_config/stlink-rtt.cfg";
     this->process.start(program, arguments);
 
     QProcess::ProcessState openocd_status = this->process.state();
@@ -125,21 +127,21 @@ void new_wight::on_run_program_clicked() {
     }
 }
 
-void new_wight::on_kill_program_clicked() {
+void control_wight::on_kill_program_clicked() {
     this->process.kill();
     qInfo("killed openocd process\n");
 }
 
-void new_wight::on_reading_rtt_clicked() {
+void control_wight::on_reading_rtt_clicked() {
     tcpClient.connectToHost("127.0.0.1", 9010);
 }
 
-void new_wight::on_close_rtt_clicked() {
+void control_wight::on_close_rtt_clicked() {
     if (tcpClient.state() == QAbstractSocket::ConnectedState)
         tcpClient.disconnectFromHost();
 }
 
-void new_wight::onSocketReadyRead() {//readyRead()信号槽函数
+void control_wight::onSocketReadyRead() {//readyRead()信号槽函数
     while (tcpClient.canReadLine()) {
         QString string = tcpClient.readLine();
         if (!openocd_log_file.open(QIODevice::Append)) {

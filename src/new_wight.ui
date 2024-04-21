@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>new_wight</class>
- <widget class="QWidget" name="new_wight">
+ <class>control_wight</class>
+ <widget class="QWidget" name="control_wight">
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -26,7 +26,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>new_wight</string>
+   <string>control_wight</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">

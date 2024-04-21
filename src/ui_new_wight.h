@@ -1,5 +1,5 @@
 /********************************************************************************
-** Form generated from reading UI file 'new_wight.ui'
+** Form generated from reading UI file 'control_wight.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.3
 **
@@ -52,7 +52,7 @@ public:
     void setupUi(QWidget *new_wight)
     {
         if (new_wight->objectName().isEmpty())
-            new_wight->setObjectName(QString::fromUtf8("new_wight"));
+            new_wight->setObjectName(QString::fromUtf8("control_wight"));
         new_wight->setEnabled(true);
         new_wight->resize(936, 732);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -198,21 +198,21 @@ public:
 
     void retranslateUi(QWidget *new_wight)
     {
-        new_wight->setWindowTitle(QCoreApplication::translate("new_wight", "new_wight", nullptr));
-        label->setText(QCoreApplication::translate("new_wight", "openocd", nullptr));
-        select_cfg_file->setText(QCoreApplication::translate("new_wight", "\351\200\211\346\213\251cfg\346\226\207\344\273\266", nullptr));
-        pushButton->setText(QCoreApplication::translate("new_wight", "\351\200\211\346\213\251\344\270\213\350\275\275\347\232\204\346\226\207\344\273\266", nullptr));
-        run_program->setText(QCoreApplication::translate("new_wight", "\346\211\247\350\241\214openocd\347\250\213\345\272\217", nullptr));
-        kill_program->setText(QCoreApplication::translate("new_wight", "\347\273\223\346\235\237\347\250\213\345\272\217", nullptr));
-        reading_rtt->setText(QCoreApplication::translate("new_wight", "\350\257\273\345\217\226log", nullptr));
-        close_rtt->setText(QCoreApplication::translate("new_wight", "\345\205\263\351\227\255log", nullptr));
-        save_rtt->setText(QCoreApplication::translate("new_wight", "\344\277\235\345\255\230log", nullptr));
-        ASSERT_check_box->setText(QCoreApplication::translate("new_wight", "ASSERT", nullptr));
-        ERROR_check_box->setText(QCoreApplication::translate("new_wight", "ERROR", nullptr));
-        WARN_check_box->setText(QCoreApplication::translate("new_wight", "WARN", nullptr));
-        INFO_check_box->setText(QCoreApplication::translate("new_wight", "INFO", nullptr));
-        DEBUG_check_box->setText(QCoreApplication::translate("new_wight", "DEBUG", nullptr));
-        VERBOSE__check_box->setText(QCoreApplication::translate("new_wight", "VERBOSE", nullptr));
+        new_wight->setWindowTitle(QCoreApplication::translate("control_wight", "control_wight", nullptr));
+        label->setText(QCoreApplication::translate("control_wight", "openocd", nullptr));
+        select_cfg_file->setText(QCoreApplication::translate("control_wight", "\351\200\211\346\213\251cfg\346\226\207\344\273\266", nullptr));
+        pushButton->setText(QCoreApplication::translate("control_wight", "\351\200\211\346\213\251\344\270\213\350\275\275\347\232\204\346\226\207\344\273\266", nullptr));
+        run_program->setText(QCoreApplication::translate("control_wight", "\346\211\247\350\241\214openocd\347\250\213\345\272\217", nullptr));
+        kill_program->setText(QCoreApplication::translate("control_wight", "\347\273\223\346\235\237\347\250\213\345\272\217", nullptr));
+        reading_rtt->setText(QCoreApplication::translate("control_wight", "\350\257\273\345\217\226log", nullptr));
+        close_rtt->setText(QCoreApplication::translate("control_wight", "\345\205\263\351\227\255log", nullptr));
+        save_rtt->setText(QCoreApplication::translate("control_wight", "\344\277\235\345\255\230log", nullptr));
+        ASSERT_check_box->setText(QCoreApplication::translate("control_wight", "ASSERT", nullptr));
+        ERROR_check_box->setText(QCoreApplication::translate("control_wight", "ERROR", nullptr));
+        WARN_check_box->setText(QCoreApplication::translate("control_wight", "WARN", nullptr));
+        INFO_check_box->setText(QCoreApplication::translate("control_wight", "INFO", nullptr));
+        DEBUG_check_box->setText(QCoreApplication::translate("control_wight", "DEBUG", nullptr));
+        VERBOSE__check_box->setText(QCoreApplication::translate("control_wight", "VERBOSE", nullptr));
     } // retranslateUi
 
 };
