@@ -37,7 +37,7 @@ Config_file::~Config_file() {
 
 }
 
-bool Config_file::set_Process_arguments(QString Process_arguments) {
+bool Config_file::set_RTT_cfg_file_arguments(QString Process_arguments) {
     this->Process_arguments = Process_arguments;
     this->save_config_file();
 }

@@ -16,7 +16,9 @@ public:
 
     bool config_file_init(void);
 
-    bool set_Process_arguments(QString Process_arguments);
+    bool set_RTT_cfg_file_arguments(QString Process_arguments);
+
+    bool set_download_cfg_file_arguments(QString Process_arguments);
 
     bool set_elf_file_path(QString elf_file_path);
 
