@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'new_wight.ui'
+** Form generated from reading UI file 'control_wight.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef UI_NEW_WIGHT_H
-#define UI_NEW_WIGHT_H
+#ifndef UI_CONTROL_WIGHT_H
+#define UI_CONTROL_WIGHT_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
@@ -30,11 +30,12 @@ public:
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
     QLabel *label;
-    QPushButton *select_cfg_file;
+    QPushButton *select_RTT_cfg_file;
+    QPushButton *select_download_cfg_file;
     QPushButton *select_download_file;
-    QPushButton *run_program;
-    QPushButton *kill_program;
+    QPushButton *download_elf_program;
     QPushButton *reading_rtt;
+    QPushButton *kill_program;
     QPushButton *close_rtt;
     QPushButton *save_rtt;
     QHBoxLayout *horizontalLayout_4;
@@ -54,7 +55,7 @@ public:
         if (control_wight->objectName().isEmpty())
             control_wight->setObjectName(QString::fromUtf8("control_wight"));
         control_wight->setEnabled(true);
-        control_wight->resize(936, 732);
+        control_wight->resize(954, 732);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -76,43 +77,48 @@ public:
 
         horizontalLayout->addWidget(label);
 
-        select_cfg_file = new QPushButton(control_wight);
-        select_cfg_file->setObjectName(QString::fromUtf8("select_cfg_file"));
+        select_RTT_cfg_file = new QPushButton(control_wight);
+        select_RTT_cfg_file->setObjectName(QString::fromUtf8("select_RTT_cfg_file"));
 
-        horizontalLayout->addWidget(select_cfg_file);
+        horizontalLayout->addWidget(select_RTT_cfg_file);
+
+        select_download_cfg_file = new QPushButton(control_wight);
+        select_download_cfg_file->setObjectName(QString::fromUtf8("select_download_cfg_file"));
+
+        horizontalLayout->addWidget(select_download_cfg_file);
 
         select_download_file = new QPushButton(control_wight);
         select_download_file->setObjectName(QString::fromUtf8("select_download_file"));
 
         horizontalLayout->addWidget(select_download_file);
 
-        run_program = new QPushButton(control_wight);
-        run_program->setObjectName(QString::fromUtf8("run_program"));
+        download_elf_program = new QPushButton(control_wight);
+        download_elf_program->setObjectName(QString::fromUtf8("download_elf_program"));
 
-        horizontalLayout->addWidget(run_program);
-
-        kill_program = new QPushButton(control_wight);
-        kill_program->setObjectName(QString::fromUtf8("kill_program"));
-
-        horizontalLayout->addWidget(kill_program);
+        horizontalLayout->addWidget(download_elf_program);
 
         reading_rtt = new QPushButton(control_wight);
         reading_rtt->setObjectName(QString::fromUtf8("reading_rtt"));
 
         horizontalLayout->addWidget(reading_rtt);
 
+        kill_program = new QPushButton(control_wight);
+        kill_program->setObjectName(QString::fromUtf8("kill_program"));
+
+        horizontalLayout->addWidget(kill_program);
+
         close_rtt = new QPushButton(control_wight);
         close_rtt->setObjectName(QString::fromUtf8("close_rtt"));
+        close_rtt->setEnabled(false);
 
         horizontalLayout->addWidget(close_rtt);
 
         save_rtt = new QPushButton(control_wight);
         save_rtt->setObjectName(QString::fromUtf8("save_rtt"));
+        save_rtt->setEnabled(false);
 
         horizontalLayout->addWidget(save_rtt);
 
-        horizontalLayout->setStretch(0, 1);
-        horizontalLayout->setStretch(1, 5);
 
         verticalLayout->addLayout(horizontalLayout);
 
@@ -200,11 +206,12 @@ public:
     {
         control_wight->setWindowTitle(QCoreApplication::translate("control_wight", "control_wight", nullptr));
         label->setText(QCoreApplication::translate("control_wight", "openocd", nullptr));
-        select_cfg_file->setText(QCoreApplication::translate("control_wight", "\351\200\211\346\213\251cfg\346\226\207\344\273\266", nullptr));
+        select_RTT_cfg_file->setText(QCoreApplication::translate("control_wight", "RTT_cfg", nullptr));
+        select_download_cfg_file->setText(QCoreApplication::translate("control_wight", "Download_cfg", nullptr));
         select_download_file->setText(QCoreApplication::translate("control_wight", "\351\200\211\346\213\251\344\270\213\350\275\275\347\232\204\346\226\207\344\273\266", nullptr));
-        run_program->setText(QCoreApplication::translate("control_wight", "\346\211\247\350\241\214openocd\347\250\213\345\272\217", nullptr));
-        kill_program->setText(QCoreApplication::translate("control_wight", "\347\273\223\346\235\237\347\250\213\345\272\217", nullptr));
+        download_elf_program->setText(QCoreApplication::translate("control_wight", "\344\270\213\350\275\275\344\272\214\350\277\233\345\210\266\347\250\213\345\272\217", nullptr));
         reading_rtt->setText(QCoreApplication::translate("control_wight", "\350\257\273\345\217\226log", nullptr));
+        kill_program->setText(QCoreApplication::translate("control_wight", "\347\273\223\346\235\237\350\257\273\345\217\226", nullptr));
         close_rtt->setText(QCoreApplication::translate("control_wight", "\345\205\263\351\227\255log", nullptr));
         save_rtt->setText(QCoreApplication::translate("control_wight", "\344\277\235\345\255\230log", nullptr));
         ASSERT_check_box->setText(QCoreApplication::translate("control_wight", "ASSERT", nullptr));
@@ -223,4 +230,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // UI_NEW_WIGHT_H
+#endif // UI_CONTROL_WIGHT_H

@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>936</width>
+    <width>954</width>
     <height>732</height>
    </rect>
   </property>
@@ -47,7 +47,7 @@
       <number>4</number>
      </property>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,5,0,0,0,0,0,0">
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0,0,0,0,0,0">
        <property name="spacing">
         <number>4</number>
        </property>
@@ -71,9 +71,16 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="select_cfg_file">
+        <widget class="QPushButton" name="select_RTT_cfg_file">
          <property name="text">
-          <string>选择cfg文件</string>
+          <string>RTT_cfg</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="select_download_cfg_file">
+         <property name="text">
+          <string>Download_cfg</string>
          </property>
         </widget>
        </item>
@@ -85,16 +92,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="run_program">
+        <widget class="QPushButton" name="download_elf_program">
          <property name="text">
-          <string>执行openocd程序</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="kill_program">
-         <property name="text">
-          <string>结束程序</string>
+          <string>下载二进制程序</string>
          </property>
         </widget>
        </item>
@@ -106,7 +106,17 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="kill_program">
+         <property name="text">
+          <string>结束读取</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="close_rtt">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>关闭log</string>
          </property>
@@ -114,6 +124,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="save_rtt">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>保存log</string>
          </property>

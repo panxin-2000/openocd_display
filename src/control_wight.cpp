@@ -11,6 +11,7 @@
 #include "QFileDialog"
 #include "QThread"
 #include <QRegularExpression>
+#include <iostream>
 
 
 control_wight::control_wight(QWidget *parent) :
@@ -37,13 +38,30 @@ control_wight::~control_wight() {
     delete ui;
 }
 
-void control_wight::on_select_cfg_file_clicked() {
+void control_wight::on_select_RTT_cfg_file_clicked() {
     QString tem = QFileDialog::getOpenFileName();
     if (!tem.isEmpty()) {
         //如果被选择的文件名不是空的，就添加到configFile
-        configFile.set_Process_arguments(tem);
+        configFile.set_RTT_cfg_file_arguments(tem);
     }
 }
+
+void control_wight::on_select_download_cfg_file_clicked() {
+    QString tem = QFileDialog::getOpenFileName();
+    if (!tem.isEmpty()) {
+        //如果被选择的文件名不是空的，就添加到configFile
+        configFile.set_download_cfg_file_arguments(tem);
+    }
+}
+
+void control_wight::on_select_download_file_clicked() {
+    QString tem = QFileDialog::getOpenFileName();
+    if (!tem.isEmpty()) {
+        //如果被选择的文件名不是空的，就添加到configFile
+        configFile.set_elf_file_path(tem);
+    }
+}
+
 
 void control_wight::write_stand_error_to_plain_text() {
     QByteArray qba = process.readAllStandardError();
@@ -94,12 +112,12 @@ void control_wight::write_stand_output_to_plain_text() {
     }
 }
 
-void control_wight::on_run_program_clicked() {
+void control_wight::on_reading_rtt_clicked() {
 //配置要执行的命令以及参数
     QStringList arguments;
     arguments.clear();
-    QString tem = configFile.read_Process_arguments();
-    if(!tem.isEmpty()){
+    QString tem = configFile.read_RTT_cfg_file_arguments();
+    if (!tem.isEmpty()) {
         arguments << "-f" << tem;
         this->process.start(program, arguments);
         QProcess::ProcessState openocd_status = this->process.state();
@@ -113,7 +131,7 @@ void control_wight::on_run_program_clicked() {
             QString string = dateTime.toString("yyyy-MM-dd-hh-mm-ss") + ".log";
             this->openocd_log_file.setFileName(string);
         }
-    }else{
+    } else {
         qInfo("openocd process no arguments\n");
     }
 }
@@ -123,30 +141,30 @@ void control_wight::on_kill_program_clicked() {
     qInfo("killed openocd process\n");
 }
 
-void control_wight::on_select_download_file_clicked()
-{
-    QStringList arguments;
-    arguments.clear();
-    QString tem = configFile.read_Process_arguments();
-    if(!tem.isEmpty()){
-        arguments << "-f" << tem;
-        this->process.start(program, arguments);
-        QProcess::ProcessState openocd_status = this->process.state();
-        if (openocd_status == QProcess::NotRunning) {
-            //The process is not running
 
-        } else if ((openocd_status == QProcess::Starting) || (openocd_status == QProcess::Running)) {
-            //The process is starting, but the program has not yet been invoked.
-
-        }
-    }else{
-        qInfo("openocd process no arguments\n");
+void control_wight::on_download_elf_program_clicked() {
+//    /usr/bin/openocd -f /home/panxin/CLionProjects/stm32_log_example/openocd_config/stm32h750vbt6.cfg
+//    -c "program \"/home/panxin/CLionProjects/stm32_log_example/cmake-build-debug/stm32_log_example.elf\""
+//    -c reset -c shutdown    QStringList arguments;
+    QString cfg_file = configFile.read_set_download_cfg_file_arguments();
+    if (cfg_file.isEmpty()) {
+        qInfo("cfg_file.isEmpty()\n");
+        return;
     }
+    QString download_file = configFile.read_elf_file_path();
+    if (download_file.isEmpty()) {
+        qInfo("download_file.isEmpty()\n");
+        return;
+    }
+    QString download_program = "/usr/bin/openocd -f " + cfg_file + " -c \"program \\\"" + download_file + "\\\"\"" +
+    " -c reset -c shutdown";
+    qInfo("%s\n", download_program.toStdString().data());
+    system(download_program.toStdString().data());
 }
 
-void control_wight::on_reading_rtt_clicked() {
-    tcpClient.connectToHost("127.0.0.1", 9010);
-}
+//void control_wight::on_reading_rtt_clicked() {
+//    tcpClient.connectToHost("127.0.0.1", 9010);
+//}
 
 void control_wight::on_close_rtt_clicked() {
     if (tcpClient.state() == QAbstractSocket::ConnectedState)

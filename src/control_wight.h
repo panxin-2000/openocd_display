@@ -51,11 +51,15 @@ public slots:
 /*
  * 当选择cfg文件的按钮后会调用该函数中的内容
  */
-    void on_select_cfg_file_clicked();
+    void on_select_RTT_cfg_file_clicked();
+
+    void on_select_download_cfg_file_clicked();
 
     void on_select_download_file_clicked();
 
-    void on_run_program_clicked();
+    void on_download_elf_program_clicked();
+
+//    void on_run_program_clicked();
 
     void on_kill_program_clicked();
 
